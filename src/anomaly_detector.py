@@ -20,11 +20,10 @@ class AnomalyDetector:
         if record["cpu_percent"] > self.cpu_threshold:
             reasons.append("High CPU utilization")
 
-        if record["memory_percent"] > self.memory_threshold:
+        if record["memory_percent"] > self.memory_threshold: # change intentation
             reasons.append("High memory utilization")
 
-        # INTENTIONAL ASSESSMENT ISSUE
-        if record["log_level"] == "WARNING":
+        if record["log_level"] == "ERROR":
             reasons.append("Error log detected")
 
         if not reasons:

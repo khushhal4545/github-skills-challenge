@@ -41,5 +41,76 @@ more advanced alerting or remediation is added.
 
 ---
 
+
+## Task 2: Analyse Logs and Metrics
+
+### 1. Fields Representing Metrics
+
+The following fields represent metrics:
+
+* `response_time_ms` – response time of the payment service in milliseconds.
+* `cpu_percent` – CPU utilization percentage.
+* `memory_percent` – memory utilization percentage.
+
+### 2. Fields Representing Log Information
+
+The following fields represent log information:
+
+* `log_level` – indicates the log severity, such as `INFO` or `ERROR`.
+* `message` – describes the event or activity that occurred.
+
+The `service` field identifies the service generating the observation.
+
+### 3. Use of Timestamps
+
+The `timestamp` field records the time at which each observation occurred.
+
+The data contains observations from `2026-09-20T10:00:00` to `2026-09-20T10:09:00`, with one observation recorded every minute.
+
+Timestamps allow the operational data to be analysed chronologically and help identify when unusual behaviour occurred.
+
+### 4. Observations Representing Normal Behaviour
+
+The observations from **10:00 to 10:04** and **10:07 to 10:09** appear to represent normal behaviour.
+
+During these periods:
+
+* Response time is approximately 120–150 ms.
+* CPU utilization is approximately 42–50%.
+* Memory utilization is approximately 51–57%.
+* Log level is `INFO`.
+* Payment requests are reported as processed successfully.
+
+The metrics remain relatively stable during these periods.
+
+### 5. Observations Representing Unusual Behaviour
+
+The observations at **10:05 and 10:06** appear to represent unusual behaviour.
+
+At **10:05**:
+
+* Response time increased to `610 ms`.
+* CPU utilization increased to `75%`.
+* Memory utilization increased to `70%`.
+* Log level changed to `ERROR`.
+* Message: `Payment service timeout`.
+
+At **10:06**:
+
+* Response time increased to `640 ms`.
+* CPU utilization increased to `94%`.
+* Memory utilization increased to `91%`.
+* Log level was `ERROR`.
+* Message: `Database connection timeout`.
+
+These observations are significantly different from the surrounding observations. The increase in response time and resource utilization, together with the `ERROR` logs, indicates abnormal behaviour.
+
+At **10:07**, the metrics returned to approximately their previous range and the log level returned to `INFO`, suggesting that the unusual behaviour was temporary.
+
+### Summary
+
+The `payment-service` shows mostly stable behaviour, with a short period of unusual activity between **10:05 and 10:06**. This period is identified by significantly higher response time, CPU and memory utilization, along with `ERROR` log messages related to payment and database timeouts.
+
+
 &copy; 2025 GitHub &bull; [Code of Conduct](https://www.contributor-covenant.org/version/2/1/code_of_conduct/code_of_conduct.md) &bull; [MIT License](https://gh.io/mit)
 

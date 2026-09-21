@@ -42,11 +42,11 @@ more advanced alerting or remediation is added.
 ---
 
 
-## Task 2: Analyse Logs and Metrics
+## Task 2: Analyse Logs and Metrics 
 
 ### 1. Fields Representing Metrics
 
-The following fields represent metrics:
+The following fields represent metrics:-
 
 * `response_time_ms` – response time of the payment service in milliseconds.
 * `cpu_percent` – CPU utilization percentage.

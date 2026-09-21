@@ -112,5 +112,30 @@ At **10:07**, the metrics returned to approximately their previous range and the
 The `payment-service` shows mostly stable behaviour, with a short period of unusual activity between **10:05 and 10:06**. This period is identified by significantly higher response time, CPU and memory utilization, along with `ERROR` log messages related to payment and database timeouts.
 
 
+
+## Task 5: Investigate and Correct the Workflow
+
+### Issue 1: Incorrect Log-Level Detection
+
+- **Affected component:** `src/anomaly_detector.py`
+- **Cause:** The detector treated `WARNING` log entries as errors.
+- **Correction:** Changed the condition from `WARNING` to `ERROR`.
+- **Verification:** The pipeline correctly identifies `ERROR` log events as anomalies.
+
+### Issue 2: Producer and Consumer Used Different Topics
+
+- **Affected component:** `src/aiops_pipeline.py`
+- **Cause:** The producer published events to `service-events`, while the consumer was listening to `anomaly-events`.
+- **Correction:** Configured the consumer to use the same `producer_topic`.
+- **Verification:** After the correction, the pipeline consumed both detected anomaly events.
+
+### Execution Result
+
+```text
+Records processed: 10
+Anomalies detected: 2
+Events consumed: 2
+
+
 &copy; 2025 GitHub &bull; [Code of Conduct](https://www.contributor-covenant.org/version/2/1/code_of_conduct/code_of_conduct.md) &bull; [MIT License](https://gh.io/mit)
 
